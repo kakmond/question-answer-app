@@ -1,31 +1,59 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+    <header class="topbar responsive-header font-weight-bold">
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div id="band" class="collapse navbar-collapse pl-4">
+          <router-link class="navbar-brand" to="/questions">Question & Answer</router-link>
+        </div>
+        <div id="navbar" class="navbar-nav pr-5">
+          <router-link class="nav-item nav-link" to="/">Home</router-link>
+          <router-link class="nav-item nav-link" to="/questions">Questions</router-link>
+          <router-link
+            v-if="user.isSignedIn"
+            class="nav-item nav-link"
+            to="/profile"
+          >{{user.username}}</router-link>
+          <router-link v-else class="nav-item nav-link" to="/signIn">Sign In</router-link>
+        </div>
+      </nav>
+    </header>
+    <div class="px-5 py-5">
+      <router-view :user="user" />
     </div>
-    <router-view/>
   </div>
 </template>
 
+<script>
+module.exports = {
+  data() {
+    return {
+      user: {
+        id: "",
+        username: "",
+        displayName: "",
+        isSignedIn: false
+      }
+    };
+  }
+};
+</script>
+
 <style>
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
+  /* text-align: center; */
   color: #2c3e50;
-}
-#nav {
-  padding: 30px;
+  font-size: 19px;
+  /* background-color: rgb(227, 227, 227); */
 }
 
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
+#band a {
+  font-size: 23px;
 }
 
-#nav a.router-link-exact-active {
+#navbar a.router-link-exact-active {
   color: #42b983;
 }
 </style>
