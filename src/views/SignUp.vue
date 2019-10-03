@@ -8,7 +8,9 @@
       class="alert alert-warning alert-dismissible fade show"
       role="alert"
     >
-      <strong v-for="(error, index) in errors" :key="index">{{error}}&nbsp;</strong>
+      <div v-for="(error, index) in errors" :key="index">
+        <strong>{{error}}&nbsp;</strong>
+      </div>
       <button type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">&times;</span>
       </button>
@@ -112,9 +114,7 @@ export default {
         this.password,
         (errors, id) => {
           if (errors.length > 0) this.errors = errors;
-          else {
-            console.log(id);
-          }
+          else this.$router.push("/signIn/");
         }
       );
     }

@@ -58,7 +58,6 @@
           <router-link class="text-success" to="/signUp">register as a new user.</router-link>
         </small>
         <hr />
-
         <button type="submit" class="btn btn-block btn-outline-primary">
           <i class="fas fa-sign-in-alt fa-lg"></i>
           <span class="pl-1">Login</span>
@@ -95,6 +94,7 @@ export default {
           this.user.id = account.id;
           this.user.isSignedIn = true;
           this.user.displayName = account.displayName;
+          this.$router.push("/profile/");
         }
       });
     }
