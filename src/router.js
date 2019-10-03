@@ -4,8 +4,10 @@ import Home from './views/Home.vue'
 import About from './views/About.vue'
 import Questions from './views/Questions.vue'
 import Question from './views/Question.vue'
+import CreateQuestion from './views/CreateQuestion.vue'
 import SignIn from './views/SignIn.vue'
 import SignUp from './views/SignUp.vue'
+import Profile from './views/Profile.vue'
 
 Vue.use(Router)
 
@@ -40,6 +42,16 @@ export default new Router({
       path: '/signUp',
       name: 'signUp',
       component: SignUp
+    },
+    {
+      path: '/profile',
+      name: 'profile',
+      component: Profile
+    },
+    {
+      path: '/createQuestion',
+      name: 'createQuestion',
+      component: CreateQuestion
     }
   ]
 })

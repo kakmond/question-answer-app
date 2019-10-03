@@ -1,5 +1,5 @@
 <template>
-  <div class="px-4 bg-white">
+  <div class="bg-white px-4">
     <div
       v-if="errors.length > 0"
       class="alert alert-warning alert-dismissible fade show"
@@ -10,10 +10,10 @@
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
-    <div class="py-4">
+    <div>
       <div class="text-center">
         <h1 class="display-4">
-          Ask Me a Question
+          Ask Us a Question
           <i class="fas text-danger fa-question-circle"></i>
         </h1>
         <p
@@ -44,27 +44,31 @@
         <div
           v-for="question in questions"
           :key="question.id"
-          class="accordion shadow bg-white rounded border-bottom"
+          class="accordion shadow-sm bg-white rounded border-bottom mt-3"
         >
           <div class="card">
             <div class="card-header">
               <div class="d-flex align-items-center">
                 <i class="fab fa-3x text-danger fa-quora"></i>
-                <router-link :to="'/questions/'+question.id">
-                  <span class="pl-3 text-dark font-weight-bold">{{question.title}}</span>
-                </router-link>
-                <div class="ml-auto">
-                  <span class="text-muted">
-                    <i class="far fa-calendar-alt"></i>
-                    {{question.createdAt | formatDate}}
-                  </span>
+                <div class="pl-3">
+                  <router-link :to="'/questions/'+question.id">
+                    <span class="text-danger font-weight-bold">{{question.title}}</span>
+                  </router-link>
+                  <footer class="blockquote-footer">{{question.name}}</footer>
                 </div>
+                <span class="ml-auto text-muted">
+                  <i class="far fa-calendar-alt"></i>
+                  {{question.createdAt | formatDate}}
+                </span>
               </div>
             </div>
             <div class="collapse show">
-              <div class="card-body d-flex align-items-center text-muted">
-                <i class="fab fa-3x fa-amilia"></i>
-                <span class="pl-4">{{question.description}}</span>
+              <div class="card-body d-flex justify-content-between align-items-center">
+                <span>{{question.description}}</span>
+                <footer class="text-muted">
+                  <i class="far fa-comments mr-1"></i>
+                  {{question.answerCount}} Comments
+                </footer>
               </div>
             </div>
           </div>
@@ -73,8 +77,8 @@
       <div v-else class="text-center">
         <span class="text-muted">NO QUESTIONS :(</span>
       </div>
-      <div class="pt-4 text-right">
-        <router-link class="btn btn-outline-success" :to="'/questions/create/'">
+      <div v-if="user.isSignedIn" class="pt-4 text-right">
+        <router-link class="btn btn-outline-success" :to="'/createQuestion/'">
           <span class="lead">
             <i class="fas fa-plus pr-2"></i>
             New Question
@@ -84,7 +88,6 @@
     </div>
   </div>
 </template>
-
 
 <script>
 const client = require("../client");
@@ -96,13 +99,16 @@ export default {
       errors: []
     };
   },
+  props: {
+    user: {
+      type: Object,
+      required: true
+    }
+  },
   created() {
     client.getAllQuestions((errors, questions) => {
-      if (errors.length > 0) {
-        this.errors = errors;
-      } else {
-        this.questions = questions;
-      }
+      if (errors.length > 0) this.errors = errors;
+      else this.questions = questions;
     });
   }
 };

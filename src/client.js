@@ -4,7 +4,7 @@ let accessToken = null
 
 exports.getAllQuestions = function (callback) {
     const request = new XMLHttpRequest()
-    request.open("GET", ROOT_PATH + "/posts")
+    request.open("GET", ROOT_PATH + "/questions")
     request.send()
     request.addEventListener("load", () => {
         const status = request.status
@@ -25,7 +25,7 @@ exports.getAllQuestions = function (callback) {
 
 exports.getQuestionById = function (id, callback) {
     const request = new XMLHttpRequest()
-    request.open("GET", ROOT_PATH + "/posts/" + id)
+    request.open("GET", ROOT_PATH + "/questions/" + id)
     request.send()
     request.addEventListener("load", () => {
         const status = request.status
@@ -34,6 +34,9 @@ exports.getQuestionById = function (id, callback) {
                 const bodyAsString = request.responseText
                 const question = JSON.parse(bodyAsString)
                 callback([], question)
+                break
+            case 404:
+                callback(["Question is not found"])
                 break
             case 500:
                 callback(["Unknown server error"])
@@ -45,26 +48,30 @@ exports.getQuestionById = function (id, callback) {
 }
 
 exports.createQuestion = function (accountId, title, description, callback) {
-    const post = {
+    const question = {
         accountId,
         title,
         description
     }
     const request = new XMLHttpRequest()
-    request.open("POST", ROOT_PATH + "/posts")
+    request.open("POST", ROOT_PATH + "/questions")
     request.setRequestHeader("Content-Type", "application/json")
-    request.send(JSON.stringify(post))
+    request.setRequestHeader("Authorization", "Bearer " + accessToken)
+    request.send(JSON.stringify(question))
     request.addEventListener("load", () => {
         const status = request.status
         switch (status) {
             case 201:
                 const location = request.getResponseHeader("Location")
-                const id = parseInt(location.substr("/posts/".length))
+                const id = parseInt(location.substr("/questions/".length))
                 callback([], id)
                 break
             case 400:
                 const errors = JSON.parse(request.responseText)
                 callback(errors)
+                break
+            case 401:
+                callback(["Unauthorized"])
                 break
             case 500:
                 callback(["Unknown server error"])
@@ -147,6 +154,27 @@ exports.signIn = function (username, password, callback) {
                     callback(["Username or password is incorrect."])
                 else
                     callback(["Unknown 400 error"])
+                break
+            case 500:
+                callback(["Unknown server error"])
+                break
+            default:
+                callback(["Unknown server error"])
+        }
+    })
+}
+
+exports.getAnswerByQuestionId = function (id, callback) {
+    const request = new XMLHttpRequest()
+    request.open("GET", ROOT_PATH + "/questions/" + id + "/answers")
+    request.send()
+    request.addEventListener("load", () => {
+        const status = request.status
+        switch (status) {
+            case 200:
+                const bodyAsString = request.responseText
+                const answers = JSON.parse(bodyAsString)
+                callback([], answers)
                 break
             case 500:
                 callback(["Unknown server error"])
