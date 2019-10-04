@@ -118,7 +118,6 @@ module.exports.signUp = function (username, name, password, callback) {
     })
 }
 
-
 exports.signIn = function (username, password, callback) {
     const data = {
         username,
@@ -175,6 +174,190 @@ exports.getAnswerByQuestionId = function (id, callback) {
                 const bodyAsString = request.responseText
                 const answers = JSON.parse(bodyAsString)
                 callback([], answers)
+                break
+            case 500:
+                callback(["Unknown server error"])
+                break
+            default:
+                callback(["Unknown server error"])
+        }
+    })
+}
+
+exports.createAnswer = function (accountId, questionId, description, callback) {
+    const answer = {
+        accountId,
+        questionId,
+        description
+    }
+    const request = new XMLHttpRequest()
+    request.open("POST", ROOT_PATH + "/answers")
+    request.setRequestHeader("Content-Type", "application/json")
+    request.setRequestHeader("Authorization", "Bearer " + accessToken)
+    request.send(JSON.stringify(answer))
+    request.addEventListener("load", () => {
+        const status = request.status
+        switch (status) {
+            case 201:
+                const location = request.getResponseHeader("Location")
+                const id = parseInt(location.substr("/answers/".length))
+                callback([], id)
+                break
+            case 400:
+                const errors = JSON.parse(request.responseText)
+                callback(errors)
+                break
+            case 401:
+                callback(["Unauthorized"])
+                break
+            case 500:
+                callback(["Unknown server error"])
+                break
+            default:
+                callback(["Unknown server error"])
+        }
+    })
+}
+
+exports.editQuestion = function (questionId, accountId, title, description, callback) {
+    const question = {
+        title,
+        description,
+        accountId
+    }
+    const request = new XMLHttpRequest()
+    request.open("PUT", ROOT_PATH + "/questions/" + questionId)
+    request.setRequestHeader("Content-Type", "application/json")
+    request.setRequestHeader("Authorization", "Bearer " + accessToken)
+    request.send(JSON.stringify(question))
+    request.addEventListener("load", () => {
+        const status = request.status
+        switch (status) {
+            case 204:
+                callback([])
+                break
+            case 400:
+                const errors = JSON.parse(request.responseText)
+                callback(errors)
+                break
+            case 401:
+                callback(["Unauthorized"])
+                break
+            case 404:
+                callback(["Question is not found"])
+                break
+            case 500:
+                callback(["Unknown server error"])
+                break
+            default:
+                callback(["Unknown server error"])
+        }
+    })
+}
+
+exports.deleteQuestion = function (questionId, callback) {
+    const request = new XMLHttpRequest()
+    request.open("DELETE", ROOT_PATH + "/questions/" + questionId)
+    request.setRequestHeader("Content-Type", "application/json")
+    request.setRequestHeader("Authorization", "Bearer " + accessToken)
+    request.send()
+    request.addEventListener("load", () => {
+        const status = request.status
+        switch (status) {
+            case 204:
+                callback([])
+                break
+            case 401:
+                callback(["Unauthorized"])
+                break
+            case 404:
+                callback(["Question is not found"])
+                break
+            case 500:
+                callback(["Unknown server error"])
+                break
+            default:
+                callback(["Unknown server error"])
+        }
+    })
+}
+
+exports.deleteAnswer = function (answerId, callback) {
+    const request = new XMLHttpRequest()
+    request.open("DELETE", ROOT_PATH + "/answers/" + answerId)
+    request.setRequestHeader("Content-Type", "application/json")
+    request.setRequestHeader("Authorization", "Bearer " + accessToken)
+    request.send()
+    request.addEventListener("load", () => {
+        const status = request.status
+        switch (status) {
+            case 204:
+                callback([])
+                break
+            case 401:
+                callback(["Unauthorized"])
+                break
+            case 404:
+                callback(["Answer is not found"])
+                break
+            case 500:
+                callback(["Unknown server error"])
+                break
+            default:
+                callback(["Unknown server error"])
+        }
+    })
+}
+
+exports.getAnswerById = function (id, callback) {
+    const request = new XMLHttpRequest()
+    request.open("GET", ROOT_PATH + "/answers/" + id)
+    request.send()
+    request.addEventListener("load", () => {
+        const status = request.status
+        switch (status) {
+            case 200:
+                const bodyAsString = request.responseText
+                const answers = JSON.parse(bodyAsString)
+                callback([], answers)
+                break
+            case 404:
+                callback(["Answer is not found"])
+                break
+            case 500:
+                callback(["Unknown server error"])
+                break
+            default:
+                callback(["Unknown server error"])
+        }
+    })
+}
+
+exports.editAnswer = function (answerId, description, callback) {
+    const answer = {
+        description,
+    }
+    const request = new XMLHttpRequest()
+    request.open("PUT", ROOT_PATH + "/answers/" + answerId)
+    request.setRequestHeader("Content-Type", "application/json")
+    request.setRequestHeader("Authorization", "Bearer " + accessToken)
+    request.send(JSON.stringify(answer))
+    request.addEventListener("load", () => {
+        const status = request.status
+        console.log(status)
+        switch (status) {
+            case 204:
+                callback([])
+                break
+            case 400:
+                const errors = JSON.parse(request.responseText)
+                callback(errors)
+                break
+            case 401:
+                callback(["Unauthorized"])
+                break
+            case 404:
+                callback(["Answer is not found"])
                 break
             case 500:
                 callback(["Unknown server error"])
