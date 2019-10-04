@@ -8,6 +8,8 @@ import CreateQuestion from './views/CreateQuestion.vue'
 import SignIn from './views/SignIn.vue'
 import SignUp from './views/SignUp.vue'
 import Profile from './views/Profile.vue'
+import EditQuestion from './views/EditQuestion.vue'
+import EditAnswer from './views/EditAnswer.vue'
 
 Vue.use(Router)
 
@@ -52,6 +54,16 @@ export default new Router({
       path: '/createQuestion',
       name: 'createQuestion',
       component: CreateQuestion
+    },
+    {
+      path: '/editQuestion/:id',
+      name: 'editQuestion',
+      component: EditQuestion
+    },
+    {
+      path: '/editAnswer/:id',
+      name: 'editAnswer',
+      component: EditAnswer
     }
   ]
 })
