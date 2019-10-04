@@ -6,9 +6,6 @@
       role="alert"
     >
       <strong v-for="(error, index) in errors" :key="index">{{error}}</strong>
-      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-      </button>
     </div>
     <div>
       <div class="text-center">
@@ -39,7 +36,15 @@
           </div>
         </div>
       </form>
-      <hr class="my-4 bg-danger" />
+      <hr class="my-3 bg-danger" />
+      <div v-if="user.isSignedIn" class="text-right">
+        <router-link class="btn btn-outline-success" :to="'/createQuestion/'">
+          <span class="lead">
+            <i class="fas fa-plus pr-2"></i>
+            New Question
+          </span>
+        </router-link>
+      </div>
       <div v-if="questions.length > 0">
         <div
           v-for="question in questions"
@@ -54,9 +59,30 @@
                   <router-link :to="'/questions/'+question.id">
                     <span class="text-danger font-weight-bold">{{question.title}}</span>
                   </router-link>
-                  <footer class="blockquote-footer">{{question.name}}</footer>
+                  <footer class="blockquote-footer">
+                    <router-link
+                      :to="'/profile/'+question.accountId"
+                      class="text-success"
+                    >{{question.name}} (@{{question.name}})</router-link>
+                  </footer>
                 </div>
                 <span class="ml-auto text-muted">
+                  <button
+                    v-if="question.accountId == user.id"
+                    v-on:click="deleteQuestion(question.id)"
+                    class="btn btn-outline-danger mr-2"
+                  >
+                    <i class="fas fa-lg fa-trash-alt"></i>
+                    <span class="pl-2">Delete</span>
+                  </button>
+                  <router-link
+                    v-if="question.accountId == user.id"
+                    class="btn btn-outline-primary mr-3"
+                    :to="'/editQuestion/'+question.id"
+                  >
+                    <i class="fas fa-lg fa-wrench"></i>
+                    <span class="pl-2">Edit</span>
+                  </router-link>
                   <i class="far fa-calendar-alt"></i>
                   {{question.createdAt | formatDate}}
                 </span>
@@ -76,14 +102,6 @@
       </div>
       <div v-else class="text-center">
         <span class="text-muted">NO QUESTIONS :(</span>
-      </div>
-      <div v-if="user.isSignedIn" class="pt-4 text-right">
-        <router-link class="btn btn-outline-success" :to="'/createQuestion/'">
-          <span class="lead">
-            <i class="fas fa-plus pr-2"></i>
-            New Question
-          </span>
-        </router-link>
       </div>
     </div>
   </div>
@@ -110,6 +128,19 @@ export default {
       if (errors.length > 0) this.errors = errors;
       else this.questions = questions;
     });
+  },
+  methods: {
+    deleteQuestion(id) {
+      const questionId = id;
+      client.deleteQuestion(questionId, errors => {
+        if (errors.length > 0) this.errors = errors;
+        else
+          client.getAllQuestions((errors, questions) => {
+            if (errors.length > 0) this.errors = errors;
+            else this.questions = questions;
+          });
+      });
+    }
   }
 };
 </script>
