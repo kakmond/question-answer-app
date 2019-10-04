@@ -36,11 +36,11 @@
             </div>
             <div class="form-group">
               <label for="inputDescription" class="text-danger font-weight-bold">
-                Project description
+                Description
                 <br />
                 <small
                   class="text-muted"
-                >A descriptive text which presents information about project.</small>
+                >A descriptive text which presents information about your question.</small>
               </label>
               <textarea
                 name="description"
