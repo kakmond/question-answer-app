@@ -96,7 +96,7 @@
                     <span class="font-weight-bold text-dark">{{answer.description}}</span>
                     <footer class="blockquote-footer">
                       <router-link
-                        :to="'/profile/'+question.accountId"
+                        :to="'/profile/'+answer.accountId"
                         class="text-success"
                       >{{answer.name}} (@{{answer.name}})</router-link>
                     </footer>

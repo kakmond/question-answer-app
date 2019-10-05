@@ -11,7 +11,7 @@
           <router-link
             v-if="user.isSignedIn"
             class="nav-item nav-link"
-            to="/profile"
+            :to="'/profile/'+user.id"
           >{{user.username}}</router-link>
           <router-link v-else class="nav-item nav-link" to="/signIn">Sign In</router-link>
         </div>

@@ -91,7 +91,7 @@ export default {
           this.user.id = account.id;
           this.user.isSignedIn = true;
           this.user.displayName = account.displayName;
-          this.$router.push("/profile/");
+          this.$router.push("/profile/" + account.id);
         }
       });
     }
