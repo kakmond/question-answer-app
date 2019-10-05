@@ -318,8 +318,8 @@ exports.getAnswerById = function (id, callback) {
         switch (status) {
             case 200:
                 const bodyAsString = request.responseText
-                const answers = JSON.parse(bodyAsString)
-                callback([], answers)
+                const answer = JSON.parse(bodyAsString)
+                callback([], answer)
                 break
             case 404:
                 callback(["Answer is not found"])
@@ -358,6 +358,72 @@ exports.editAnswer = function (answerId, description, callback) {
                 break
             case 404:
                 callback(["Answer is not found"])
+                break
+            case 500:
+                callback(["Unknown server error"])
+                break
+            default:
+                callback(["Unknown server error"])
+        }
+    })
+}
+
+exports.getQuestionsByAccountId = function (id, callback) {
+    const request = new XMLHttpRequest()
+    request.open("GET", ROOT_PATH + "/accounts/" + id + "/questions")
+    request.send()
+    request.addEventListener("load", () => {
+        const status = request.status
+        switch (status) {
+            case 200:
+                const bodyAsString = request.responseText
+                const questions = JSON.parse(bodyAsString)
+                callback([], questions)
+                break
+            case 500:
+                callback(["Unknown server error"])
+                break
+            default:
+                callback(["Unknown server error"])
+        }
+    })
+}
+
+exports.getAnswersByAccountId = function (id, callback) {
+    const request = new XMLHttpRequest()
+    request.open("GET", ROOT_PATH + "/accounts/" + id + "/answers")
+    request.send()
+    request.addEventListener("load", () => {
+        const status = request.status
+        switch (status) {
+            case 200:
+                const bodyAsString = request.responseText
+                const answers = JSON.parse(bodyAsString)
+                callback([], answers)
+                break
+            case 500:
+                callback(["Unknown server error"])
+                break
+            default:
+                callback(["Unknown server error"])
+        }
+    })
+}
+
+exports.getAccountById = function (id, callback) {
+    const request = new XMLHttpRequest()
+    request.open("GET", ROOT_PATH + "/accounts/" + id)
+    request.send()
+    request.addEventListener("load", () => {
+        const status = request.status
+        switch (status) {
+            case 200:
+                const bodyAsString = request.responseText
+                const account = JSON.parse(bodyAsString)
+                callback([], account)
+                break
+            case 404:
+                callback(["Account is not found"])
                 break
             case 500:
                 callback(["Unknown server error"])
