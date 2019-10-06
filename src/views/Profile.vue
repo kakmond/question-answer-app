@@ -5,12 +5,20 @@
       <h4 class="font-weight-light text-muted">@{{account.username}}</h4>
       <router-link
         v-if="account.id == user.id"
-        class="btn btn-outline-primary"
+        class="btn btn-outline-primary mt-2"
         :to="'/editProfile/'"
       >
         <i class="fas fa-lg fa-user-cog"></i>
         <span class="pl-2">Edit Profile</span>
       </router-link>
+      <button
+        v-on:click="signOut()"
+        v-if="account.id == user.id"
+        class="btn btn-outline-danger mt-2 ml-3"
+      >
+        <i class="fas fa-lg fa-sign-out-alt"></i>
+        <span class="pl-2">Sign Out</span>
+      </button>
     </div>
     <br />
     <ul class="nav-fill nav nav-tabs" role="tablist">
@@ -215,6 +223,14 @@ export default {
             if (errors.length > 0) this.answerErrors = errors;
             else this.answers = answers;
           });
+      });
+    },
+    signOut() {
+      client.signOut(() => {
+        this.user.id = "";
+        this.user.username = "";
+        this.user.isSignedIn = false;
+        this.$router.push("/signIn/");
       });
     }
   }

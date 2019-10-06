@@ -10,6 +10,7 @@ import SignUp from './views/SignUp.vue'
 import Profile from './views/Profile.vue'
 import EditQuestion from './views/EditQuestion.vue'
 import EditAnswer from './views/EditAnswer.vue'
+import EditProfile from './views/EditProfile.vue'
 
 Vue.use(Router)
 
@@ -64,6 +65,11 @@ export default new Router({
       path: '/editAnswer/:id',
       name: 'editAnswer',
       component: EditAnswer
+    },
+    {
+      path: '/editProfile',
+      name: 'editProfile',
+      component: EditProfile
     }
   ]
 })

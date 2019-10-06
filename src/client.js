@@ -433,3 +433,37 @@ exports.getAccountById = function (id, callback) {
         }
     })
 }
+
+exports.editAccount = function (accountId, name, callback) {
+    const account = {
+        name
+    }
+    const request = new XMLHttpRequest()
+    request.open("PUT", ROOT_PATH + "/accounts/" + accountId)
+    request.setRequestHeader("Content-Type", "application/json")
+    request.setRequestHeader("Authorization", "Bearer " + accessToken)
+    request.send(JSON.stringify(account))
+    request.addEventListener("load", () => {
+        const status = request.status
+        switch (status) {
+            case 204:
+                callback([])
+                break
+            case 400:
+                const errors = JSON.parse(request.responseText)
+                callback(errors)
+                break
+            case 401:
+                callback(["Unauthorized"])
+                break
+            case 404:
+                callback(["Account is not found"])
+                break
+            case 500:
+                callback(["Unknown server error"])
+                break
+            default:
+                callback(["Unknown server error"])
+        }
+    })
+}

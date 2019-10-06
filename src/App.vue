@@ -30,7 +30,6 @@ module.exports = {
       user: {
         id: "",
         username: "",
-        displayName: "",
         isSignedIn: false
       }
     };
