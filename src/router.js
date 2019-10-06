@@ -13,6 +13,14 @@ import EditProfile from './views/EditProfile.vue'
 
 Vue.use(Router)
 
+function checkAuth(to, from, next) {
+  const token = localStorage.getItem("token");
+  if (token)
+    next();
+  else
+    next('/signIn');
+}
+
 export default new Router({
   routes: [
     {
@@ -48,21 +56,25 @@ export default new Router({
     {
       path: '/createQuestion',
       name: 'createQuestion',
+      beforeEnter: checkAuth,
       component: CreateQuestion
     },
     {
       path: '/editQuestion/:id',
       name: 'editQuestion',
+      beforeEnter: checkAuth,
       component: EditQuestion
     },
     {
       path: '/editAnswer/:id',
       name: 'editAnswer',
+      beforeEnter: checkAuth,
       component: EditAnswer
     },
     {
       path: '/editProfile',
       name: 'editProfile',
+      beforeEnter: checkAuth,
       component: EditProfile
     }
   ]
