@@ -16,7 +16,7 @@
     <ul class="nav-fill nav nav-tabs" role="tablist">
       <li class="nav-item">
         <a
-          class="nav-link active lead"
+          class="nav-link active lead border"
           id="question-tab"
           data-toggle="tab"
           href="#question"
@@ -27,7 +27,7 @@
       </li>
       <li class="nav-item">
         <a
-          class="nav-link lead"
+          class="nav-link lead border"
           id="answer-tab"
           data-toggle="tab"
           href="#answer"
@@ -223,10 +223,23 @@ export default {
 
 <style scoped>
 .nav-tabs .nav-item.show .nav-link,
-.nav-tabs .nav-link.active {
+.nav-tabs #question-tab.nav-link.active {
   color: #ffffff;
   background-color: #dc3545;
   font-weight: bold;
   border-color: #dc3545;
+}
+
+.nav-tabs .nav-item.show .nav-link,
+.nav-tabs #question-tab.nav-link {
+  color: #dc3545;
+}
+
+.nav-tabs .nav-item.show .nav-link,
+.nav-tabs #answer-tab.nav-link.active {
+  color: #ffffff;
+  background-color: #007bff;
+  font-weight: bold;
+  border-color: #007bff;
 }
 </style>
