@@ -6,8 +6,8 @@
           <router-link class="navbar-brand" to="/questions">Question & Answer</router-link>
         </div>
         <div id="navbar" class="navbar-nav pr-5">
-          <router-link class="nav-item nav-link" to="/">Home</router-link>
           <router-link class="nav-item nav-link" to="/questions">Questions</router-link>
+          <router-link class="nav-item nav-link" to="/about">About</router-link>
           <router-link
             v-if="user.isSignedIn"
             class="nav-item nav-link"
