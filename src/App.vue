@@ -24,6 +24,9 @@
 </template>
 
 <script>
+const client = require("./client");
+const jwtDecode = require("jwt-decode");
+
 module.exports = {
   data() {
     return {
@@ -33,6 +36,20 @@ module.exports = {
         isSignedIn: false
       }
     };
+  },
+  created() {
+    const token = localStorage.getItem("token");
+    if (token) {
+      const payload = jwtDecode(token);
+      const accountId = payload.accountId;
+      client.getAccountById(accountId, (errors, account) => {
+        if (errors.length <= 0) {
+          this.user.id = account.id;
+          this.user.username = account.name;
+          this.user.isSignedIn = true;
+        }
+      });
+    }
   }
 };
 </script>

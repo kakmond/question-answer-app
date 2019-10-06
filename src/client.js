@@ -1,6 +1,6 @@
 const jwtDecode = require('jwt-decode')
 const ROOT_PATH = "http://localhost:3000"
-let accessToken = null
+let accessToken = localStorage.getItem('token') || null
 
 exports.getAllQuestions = function (callback) {
     const request = new XMLHttpRequest()
@@ -84,6 +84,7 @@ exports.createQuestion = function (accountId, title, description, callback) {
 
 module.exports.signOut = function (callback) {
     accessToken = null
+    localStorage.removeItem('token')
     callback()
 }
 
@@ -136,6 +137,7 @@ exports.signIn = function (username, password, callback) {
         switch (status) {
             case 200:
                 const body = JSON.parse(request.responseText)
+                localStorage.setItem('token', body.access_token) // store the token in localstorage
                 accessToken = body.access_token
                 const payload = jwtDecode(body.id_token)
                 const signedAccount = {
