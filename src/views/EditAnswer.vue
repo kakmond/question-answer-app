@@ -38,14 +38,14 @@
       </div>
     </div>
     <br />
-    <div
-      v-if="answerErrors.length > 0"
-      class="alert alert-info alert-dismissible fade show"
-      role="alert"
-    >
-      <strong v-for="(error, index) in answerErrors" :key="index">{{error}}</strong>
-    </div>
     <div v-if="answer">
+      <div
+        v-if="answerErrors.length > 0"
+        class="alert alert-info alert-dismissible fade show"
+        role="alert"
+      >
+        <strong v-for="(error, index) in answerErrors" :key="index">{{error}}</strong>
+      </div>
       <div class="accordion shadow">
         <div class="card">
           <div class="card-header justify-content-between d-flex align-items-center">
@@ -86,8 +86,14 @@
         </div>
       </div>
     </div>
-    <div v-else class="text-center">
-      <span class="text-muted">NO QUESTIONS :(</span>
+    <div v-else class="jumbotron jumbotron-fluid bg-dark">
+      <div class="container text-white">
+        <div class="row">
+          <h1 class="display-4">Answer not found</h1>
+          <i class="pl-4 far fa-4x fa-dizzy"></i>
+        </div>
+        <p>The answer you are looking for is not available.</p>
+      </div>
     </div>
   </div>
 </template>
