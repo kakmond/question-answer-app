@@ -81,7 +81,7 @@
                       <div class="align-self-center pr-2">
                         <button
                           v-if="question.accountId == user.id"
-                          v-on:click="deleteQuestion()"
+                          v-on:click="deleteQuestion(question.id)"
                           class="btn btn-outline-danger mr-2"
                         >
                           <i class="fas fa-lg fa-trash-alt"></i>
