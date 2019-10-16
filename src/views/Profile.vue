@@ -201,7 +201,6 @@ export default {
     }
   },
   created() {
-    console.log("ENTER")
     const accountId = this.$route.params.id;
     client.getAccountById(accountId, (errors, account) => {
       if (errors.length > 0) this.accountErrors = errors;

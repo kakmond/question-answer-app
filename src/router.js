@@ -10,6 +10,7 @@ import Profile from './views/Profile.vue'
 import EditQuestion from './views/EditQuestion.vue'
 import EditAnswer from './views/EditAnswer.vue'
 import EditProfile from './views/EditProfile.vue'
+import PageNotFound from './views/PageNotFound.vue'
 
 Vue.use(Router)
 
@@ -76,6 +77,11 @@ export default new Router({
       name: 'editProfile',
       beforeEnter: checkAuth,
       component: EditProfile
-    }
+    },
+    {
+      path: '*',
+      name: 'pageNotFound',
+      component: PageNotFound
+    },
   ]
 })
