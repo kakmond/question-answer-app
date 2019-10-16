@@ -124,7 +124,7 @@ export default {
       const questionId = this.$route.params.id;
       client.deleteQuestion(questionId, errors => {
         if (errors.length > 0) this.errors = errors;
-        else this.$router.push("/questions/");
+        else this.$router.push("/");
       });
     }
   }

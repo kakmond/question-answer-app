@@ -15,7 +15,7 @@
         </h1>
         <p
           class="text-muted"
-        >If you have questions about anything, feel free to come by and ask, any time.</p>
+        >If you have questions about anything in JU, feel free to come by and ask, any time.</p>
       </div>
       <hr class="my-3 bg-danger" />
       <div v-if="user.isSignedIn" class="text-right">
