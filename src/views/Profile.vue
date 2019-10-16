@@ -74,7 +74,7 @@
                         <router-link
                           :to="'/profile/'+question.accountId"
                           class="text-success"
-                        >{{question.name}} (@{{question.name}})</router-link>
+                        >{{question.name}} (@{{question.username}})</router-link>
                       </footer>
                     </div>
                     <div class="ml-auto">
@@ -132,7 +132,7 @@
                         <router-link
                           :to="'/profile/'+answer.accountId"
                           class="text-success"
-                        >{{answer.name}} (@{{answer.name}})</router-link>
+                        >{{answer.name}} (@{{answer.username}})</router-link>
                       </footer>
                     </div>
                     <div class="ml-auto pr-2">

@@ -17,25 +17,6 @@
           class="text-muted"
         >If you have questions about anything, feel free to come by and ask, any time.</p>
       </div>
-      <form>
-        <div class="input-group input-group-lg mb-3">
-          <input
-            type="text"
-            value
-            name="search"
-            class="form-control"
-            placeholder="Search..."
-            aria-describedby="button-addon"
-            maxlength="100"
-          />
-          <div class="input-group-append">
-            <button class="btn btn-danger" type="submit" id="button-addon">
-              Search
-              <i class="fas fa-search pl-1 fa-lg"></i>
-            </button>
-          </div>
-        </div>
-      </form>
       <hr class="my-3 bg-danger" />
       <div v-if="user.isSignedIn" class="text-right">
         <router-link class="btn btn-outline-success" :to="'/createQuestion/'">
@@ -63,7 +44,7 @@
                     <router-link
                       :to="'/profile/'+question.accountId"
                       class="text-success"
-                    >{{question.name}} (@{{question.name}})</router-link>
+                    >{{question.name}} (@{{question.username}})</router-link>
                   </footer>
                 </div>
                 <span class="ml-auto text-muted">
