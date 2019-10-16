@@ -3,10 +3,10 @@
     <header class="topbar responsive-header font-weight-bold">
       <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div id="band" class="collapse navbar-collapse pl-4">
-          <router-link class="navbar-brand" to="/questions">Q&A</router-link>
+          <router-link class="navbar-brand" to="/">Q&A</router-link>
         </div>
         <div id="navbar" class="navbar-nav pr-5">
-          <router-link class="nav-item nav-link" to="/questions">Questions</router-link>
+          <router-link class="nav-item nav-link" to="/">Questions</router-link>
           <router-link class="nav-item nav-link" to="/about">About</router-link>
           <router-link
             v-if="user.isSignedIn"
