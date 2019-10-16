@@ -106,6 +106,9 @@
               </div>
             </div>
           </div>
+          <div v-else class="border shadow text-center py-5">
+            <span class="text-muted">NO QUESTIONS.</span>
+          </div>
         </div>
         <div class="tab-pane fade" id="answer" role="tabpanel" aria-labelledby="answer-tab">
           <div
@@ -115,47 +118,52 @@
           >
             <strong v-for="(error, index) in answerErrors" :key="index">{{error}}</strong>
           </div>
-          <div v-for="answer in answers" :key="answer.id" class="accordion shadow">
-            <div class="card">
-              <div class="card-body">
-                <div class="d-flex align-items-center">
-                  <i class="fab fa-3x text-info fa-amilia"></i>
-                  <div class="pl-3">
-                    <router-link :to="'/questions/'+answer.questionId">
-                      <span class="text-info font-weight-bold">{{answer.description}}</span>
-                    </router-link>
-                    <footer class="blockquote-footer">
+          <div v-if="answers.length > 0">
+            <div v-for="answer in answers" :key="answer.id" class="accordion shadow">
+              <div class="card">
+                <div class="card-body">
+                  <div class="d-flex align-items-center">
+                    <i class="fab fa-3x text-info fa-amilia"></i>
+                    <div class="pl-3">
+                      <router-link :to="'/questions/'+answer.questionId">
+                        <span class="text-info font-weight-bold">{{answer.description}}</span>
+                      </router-link>
+                      <footer class="blockquote-footer">
+                        <router-link
+                          :to="'/profile/'+answer.accountId"
+                          class="text-success"
+                        >{{answer.name}} (@{{answer.name}})</router-link>
+                      </footer>
+                    </div>
+                    <div class="ml-auto pr-2">
+                      <button
+                        v-on:click="deleteAnswer(answer.id)"
+                        class="btn btn-outline-danger mr-2"
+                        v-if="answer.accountId == user.id"
+                      >
+                        <i class="fas fa-lg fa-trash-alt"></i>
+                        <span class="pl-2">Delete</span>
+                      </button>
                       <router-link
-                        :to="'/profile/'+answer.accountId"
-                        class="text-success"
-                      >{{answer.name}} (@{{answer.name}})</router-link>
-                    </footer>
-                  </div>
-                  <div class="ml-auto pr-2">
-                    <button
-                      v-on:click="deleteAnswer(answer.id)"
-                      class="btn btn-outline-danger mr-2"
-                      v-if="answer.accountId == user.id"
-                    >
-                      <i class="fas fa-lg fa-trash-alt"></i>
-                      <span class="pl-2">Delete</span>
-                    </button>
-                    <router-link
-                      v-if="answer.accountId == user.id"
-                      class="mr-3 btn btn-outline-primary"
-                      :to="'/editAnswer/'+answer.id"
-                    >
-                      <i class="fas fa-lg fa-wrench"></i>
-                      <span class="pl-2">Edit</span>
-                    </router-link>
-                    <span class="text-muted">
-                      <i class="far fa-calendar-alt"></i>
-                      {{answer.createdAt | formatDate}}
-                    </span>
+                        v-if="answer.accountId == user.id"
+                        class="mr-3 btn btn-outline-primary"
+                        :to="'/editAnswer/'+answer.id"
+                      >
+                        <i class="fas fa-lg fa-wrench"></i>
+                        <span class="pl-2">Edit</span>
+                      </router-link>
+                      <span class="text-muted">
+                        <i class="far fa-calendar-alt"></i>
+                        {{answer.createdAt | formatDate}}
+                      </span>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
+          </div>
+          <div v-else class="border shadow text-center py-5">
+            <span class="text-muted">NO ANSWERS.</span>
           </div>
         </div>
       </div>
@@ -193,6 +201,7 @@ export default {
     }
   },
   created() {
+    console.log("ENTER")
     const accountId = this.$route.params.id;
     client.getAccountById(accountId, (errors, account) => {
       if (errors.length > 0) this.accountErrors = errors;
