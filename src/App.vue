@@ -45,7 +45,7 @@ module.exports = {
       client.getAccountById(accountId, (errors, account) => {
         if (errors.length <= 0) {
           this.user.id = account.id;
-          this.user.username = account.name;
+          this.user.username = account.username;
           this.user.isSignedIn = true;
         }
       });
