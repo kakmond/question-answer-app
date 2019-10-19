@@ -47,9 +47,8 @@ exports.getQuestionById = function (id, callback) {
     })
 }
 
-exports.createQuestion = function (accountId, title, description, callback) {
+exports.createQuestion = function (title, description, callback) {
     const question = {
-        accountId,
         title,
         description
     }
@@ -165,7 +164,7 @@ exports.signIn = function (username, password, callback) {
     })
 }
 
-exports.getAnswerByQuestionId = function (id, callback) {
+exports.getAnswersByQuestionId = function (id, callback) {
     const request = new XMLHttpRequest()
     request.open("GET", ROOT_PATH + "/questions/" + id + "/answers")
     request.send()
@@ -186,9 +185,8 @@ exports.getAnswerByQuestionId = function (id, callback) {
     })
 }
 
-exports.createAnswer = function (accountId, questionId, description, callback) {
+exports.createAnswer = function (questionId, description, callback) {
     const answer = {
-        accountId,
         questionId,
         description
     }
@@ -221,11 +219,10 @@ exports.createAnswer = function (accountId, questionId, description, callback) {
     })
 }
 
-exports.editQuestion = function (questionId, accountId, title, description, callback) {
+exports.editQuestion = function (questionId, title, description, callback) {
     const question = {
         title,
         description,
-        accountId
     }
     const request = new XMLHttpRequest()
     request.open("PUT", ROOT_PATH + "/questions/" + questionId)

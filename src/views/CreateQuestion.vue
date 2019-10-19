@@ -85,7 +85,6 @@ export default {
   methods: {
     createQuestion() {
       client.createQuestion(
-        this.user.id,
         this.title,
         this.description,
         (errors, id) => {

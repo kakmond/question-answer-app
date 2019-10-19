@@ -167,7 +167,7 @@ export default {
       if (errors.length > 0) this.questionErrors = errors;
       else this.question = question;
     });
-    client.getAnswerByQuestionId(id, (errors, answers) => {
+    client.getAnswersByQuestionId(id, (errors, answers) => {
       if (errors.length > 0) this.answerErrors = errors;
       else this.answers = answers;
     });
@@ -176,12 +176,11 @@ export default {
     answer() {
       this.answerErrors = [];
       const questionId = this.$route.params.id;
-      const accountId = this.user.id;
-      client.createAnswer(accountId, questionId, this.comment, (errors, id) => {
+      client.createAnswer(questionId, this.comment, (errors, id) => {
         if (errors.length > 0) this.answerErrors = errors;
         else {
           this.comment = "";
-          client.getAnswerByQuestionId(questionId, (errors, answers) => {
+          client.getAnswersByQuestionId(questionId, (errors, answers) => {
             if (errors.length > 0) this.answerErrors = errors;
             else this.answers = answers;
           });
@@ -201,7 +200,7 @@ export default {
       client.deleteAnswer(answerId, errors => {
         if (errors.length > 0) this.errors = errors;
         else
-          client.getAnswerByQuestionId(questionId, (errors, answers) => {
+          client.getAnswersByQuestionId(questionId, (errors, answers) => {
             if (errors.length > 0) this.answerErrors = errors;
             else this.answers = answers;
           });

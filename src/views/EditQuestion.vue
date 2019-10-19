@@ -106,12 +106,10 @@ export default {
   methods: {
     editQuestion() {
       const questionId = this.$route.params.id;
-      const accountId = this.user.id;
       const questionTitle = this.question.title;
       const questionDescription = this.question.description;
       client.editQuestion(
         questionId,
-        accountId,
         questionTitle,
         questionDescription,
         errors => {
