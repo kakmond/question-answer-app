@@ -1,16 +1,16 @@
-import Vue from 'vue'
-import Router from 'vue-router'
-import About from './views/About.vue'
-import Questions from './views/Questions.vue'
-import Question from './views/Question.vue'
-import CreateQuestion from './views/CreateQuestion.vue'
-import SignIn from './views/SignIn.vue'
-import SignUp from './views/SignUp.vue'
-import Profile from './views/Profile.vue'
-import EditQuestion from './views/EditQuestion.vue'
-import EditAnswer from './views/EditAnswer.vue'
-import EditProfile from './views/EditProfile.vue'
-import PageNotFound from './views/PageNotFound.vue'
+import Vue from "vue"
+import Router from "vue-router"
+import About from "./views/About.vue"
+import Questions from "./views/Questions.vue"
+import Question from "./views/Question.vue"
+import CreateQuestion from "./views/CreateQuestion.vue"
+import SignIn from "./views/SignIn.vue"
+import SignUp from "./views/SignUp.vue"
+import Profile from "./views/Profile.vue"
+import EditQuestion from "./views/EditQuestion.vue"
+import EditAnswer from "./views/EditAnswer.vue"
+import EditProfile from "./views/EditProfile.vue"
+import PageNotFound from "./views/PageNotFound.vue"
 
 Vue.use(Router)
 
@@ -19,68 +19,68 @@ function checkAuth(to, from, next) {
   if (token)
     next();
   else
-    next('/signIn');
+    next("/signIn");
 }
 
 export default new Router({
   routes: [
     {
-      path: '/about',
-      name: 'about',
+      path: "/about",
+      name: "about",
       component: About
     },
     {
-      path: '/',
-      name: 'questions',
+      path: "/",
+      name: "questions",
       component: Questions
     },
     {
-      path: '/questions/:id',
-      name: 'question',
+      path: "/questions/:id",
+      name: "question",
       component: Question
     },
     {
-      path: '/signIn',
-      name: 'signIn',
+      path: "/signIn",
+      name: "signIn",
       component: SignIn
     },
     {
-      path: '/signUp',
-      name: 'signUp',
+      path: "/signUp",
+      name: "signUp",
       component: SignUp
     },
     {
-      path: '/profile/:id',
-      name: 'profile',
+      path: "/profile/:id",
+      name: "profile",
       component: Profile
     },
     {
-      path: '/createQuestion',
-      name: 'createQuestion',
+      path: "/createQuestion",
+      name: "createQuestion",
       beforeEnter: checkAuth,
       component: CreateQuestion
     },
     {
-      path: '/editQuestion/:id',
-      name: 'editQuestion',
+      path: "/editQuestion/:id",
+      name: "editQuestion",
       beforeEnter: checkAuth,
       component: EditQuestion
     },
     {
-      path: '/editAnswer/:id',
-      name: 'editAnswer',
+      path: "/editAnswer/:id",
+      name: "editAnswer",
       beforeEnter: checkAuth,
       component: EditAnswer
     },
     {
-      path: '/editProfile',
-      name: 'editProfile',
+      path: "/editProfile",
+      name: "editProfile",
       beforeEnter: checkAuth,
       component: EditProfile
     },
     {
-      path: '*',
-      name: 'pageNotFound',
+      path: "*",
+      name: "pageNotFound",
       component: PageNotFound
     },
   ]

@@ -1,6 +1,6 @@
-const jwtDecode = require('jwt-decode')
+const jwtDecode = require("jwt-decode")
 const ROOT_PATH = "http://localhost:3000"
-let accessToken = localStorage.getItem('token') || null
+let accessToken = localStorage.getItem("token") || null
 
 exports.getAllQuestions = function (callback) {
     const request = new XMLHttpRequest()
@@ -20,6 +20,9 @@ exports.getAllQuestions = function (callback) {
             default:
                 callback(["Unknown server error"])
         }
+    })
+    request.addEventListener("error", function () {
+        callback(["Connection Refused!"])
     })
 }
 
@@ -44,6 +47,9 @@ exports.getQuestionById = function (id, callback) {
             default:
                 callback(["Unknown server error"])
         }
+    })
+    request.addEventListener("error", function () {
+        callback(["Connection Refused!"])
     })
 }
 
@@ -79,11 +85,14 @@ exports.createQuestion = function (title, description, callback) {
                 callback(["Unknown server error"])
         }
     })
+    request.addEventListener("error", function () {
+        callback(["Connection Refused!"])
+    })
 }
 
 module.exports.signOut = function (callback) {
     accessToken = null
-    localStorage.removeItem('token')
+    localStorage.removeItem("token")
     callback()
 }
 
@@ -116,6 +125,9 @@ module.exports.signUp = function (username, name, password, callback) {
                 callback(["Unknown server error"])
         }
     })
+    request.addEventListener("error", function () {
+        callback(["Connection Refused!"])
+    })
 }
 
 exports.signIn = function (username, password, callback) {
@@ -136,7 +148,7 @@ exports.signIn = function (username, password, callback) {
         switch (status) {
             case 200:
                 const body = JSON.parse(request.responseText)
-                localStorage.setItem('token', body.access_token) // store the token in localstorage
+                localStorage.setItem("token", body.access_token) // store the token in localstorage
                 accessToken = body.access_token
                 const payload = jwtDecode(body.id_token)
                 const signedAccount = {
@@ -162,6 +174,9 @@ exports.signIn = function (username, password, callback) {
                 callback(["Unknown server error"])
         }
     })
+    request.addEventListener("error", function () {
+        callback(["Connection Refused!"])
+    })
 }
 
 exports.getAnswersByQuestionId = function (id, callback) {
@@ -182,6 +197,9 @@ exports.getAnswersByQuestionId = function (id, callback) {
             default:
                 callback(["Unknown server error"])
         }
+    })
+    request.addEventListener("error", function () {
+        callback(["Connection Refused!"])
     })
 }
 
@@ -216,6 +234,9 @@ exports.createAnswer = function (questionId, description, callback) {
             default:
                 callback(["Unknown server error"])
         }
+    })
+    request.addEventListener("error", function () {
+        callback(["Connection Refused!"])
     })
 }
 
@@ -252,6 +273,9 @@ exports.editQuestion = function (questionId, title, description, callback) {
                 callback(["Unknown server error"])
         }
     })
+    request.addEventListener("error", function () {
+        callback(["Connection Refused!"])
+    })
 }
 
 exports.deleteQuestion = function (questionId, callback) {
@@ -278,6 +302,9 @@ exports.deleteQuestion = function (questionId, callback) {
             default:
                 callback(["Unknown server error"])
         }
+    })
+    request.addEventListener("error", function () {
+        callback(["Connection Refused!"])
     })
 }
 
@@ -306,6 +333,9 @@ exports.deleteAnswer = function (answerId, callback) {
                 callback(["Unknown server error"])
         }
     })
+    request.addEventListener("error", function () {
+        callback(["Connection Refused!"])
+    })
 }
 
 exports.getAnswerById = function (id, callback) {
@@ -329,6 +359,9 @@ exports.getAnswerById = function (id, callback) {
             default:
                 callback(["Unknown server error"])
         }
+    })
+    request.addEventListener("error", function () {
+        callback(["Connection Refused!"])
     })
 }
 
@@ -365,6 +398,9 @@ exports.editAnswer = function (answerId, description, callback) {
                 callback(["Unknown server error"])
         }
     })
+    request.addEventListener("error", function () {
+        callback(["Connection Refused!"])
+    })
 }
 
 exports.getQuestionsByAccountId = function (id, callback) {
@@ -386,6 +422,9 @@ exports.getQuestionsByAccountId = function (id, callback) {
                 callback(["Unknown server error"])
         }
     })
+    request.addEventListener("error", function () {
+        callback(["Connection Refused!"])
+    })
 }
 
 exports.getAnswersByAccountId = function (id, callback) {
@@ -406,6 +445,9 @@ exports.getAnswersByAccountId = function (id, callback) {
             default:
                 callback(["Unknown server error"])
         }
+    })
+    request.addEventListener("error", function () {
+        callback(["Connection Refused!"])
     })
 }
 
@@ -430,6 +472,9 @@ exports.getAccountById = function (id, callback) {
             default:
                 callback(["Unknown server error"])
         }
+    })
+    request.addEventListener("error", function () {
+        callback(["Connection Refused!"])
     })
 }
 
@@ -464,5 +509,8 @@ exports.editAccount = function (accountId, name, callback) {
             default:
                 callback(["Unknown server error"])
         }
+    })
+    request.addEventListener("error", function () {
+        callback(["Connection Refused!"])
     })
 }

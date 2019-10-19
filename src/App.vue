@@ -59,9 +59,7 @@ module.exports = {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  /* text-align: center; */
   font-size: 19px;
-  /* background-color: rgb(227, 227, 227); */
 }
 
 #band a {
