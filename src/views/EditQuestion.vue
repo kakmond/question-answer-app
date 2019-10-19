@@ -1,13 +1,6 @@
 <template>
   <div>
     <div v-if="question">
-      <div v-if="errors.length > 0">
-        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-          <div v-for="(error, index) in errors" :key="index">
-            <strong>{{error}}</strong>
-          </div>
-        </div>
-      </div>
       <div class="accordion shadow">
         <div class="card">
           <div class="card-header text-center">
@@ -17,6 +10,13 @@
             </span>
           </div>
           <div class="card-body px-4">
+            <div v-if="errors.length > 0">
+              <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <div v-for="(error, index) in errors" :key="index">
+                  <strong>{{error}}</strong>
+                </div>
+              </div>
+            </div>
             <form @submit.prevent="editQuestion()">
               <div class="form-group row">
                 <label

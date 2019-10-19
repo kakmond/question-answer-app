@@ -49,13 +49,6 @@
         </div>
       </div>
       <br />
-      <div
-        v-if="answerErrors.length > 0"
-        class="alert alert-info alert-dismissible fade show"
-        role="alert"
-      >
-        <strong v-for="(error, index) in answerErrors" :key="index">{{error}}</strong>
-      </div>
       <div class="accordion shadow">
         <div class="card">
           <div class="card-header justify-content-between d-flex align-items-center">
@@ -69,6 +62,13 @@
             </span>
           </div>
           <div class="card-body">
+            <div
+              v-if="answerErrors.length > 0"
+              class="alert alert-info alert-dismissible fade show"
+              role="alert"
+            >
+              <strong v-for="(error, index) in answerErrors" :key="index">{{error}}</strong>
+            </div>
             <form @submit.prevent="answer()">
               <div class="input-group input-group-lg mb-3">
                 <input
